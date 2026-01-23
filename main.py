@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os
 from langchain_core.prompts import PromptTemplate
 from langchain_anthropic import AnthropicLLM
+from langchain_ollama import ChatOllama
 
 load_dotenv()
 
@@ -19,7 +20,9 @@ def main():
         input_variables=["information"], template=summary_template
     )
     
-    llm = AnthropicLLM(temperature=0, name="claude-3-haiku-20240307")   # temperature close to 0 for math code ect and 0.8 for creativity             
+    #llm = AnthropicLLM(temperature=0, name="claude-3-haiku-20240307")   # temperature close to 0 for math code ect and 0.8 for creativity             
+    llm = ChatOllama(temperature=0, model="llama3.2:3b") # local model 
+    
     print("Hello from lanchain-course !")
     print(os.environ.get("ANTHROPIC_API_KEY"))
     chain = summary_prompt_template | llm # LCEL syntaxe (connect output to input as a chain) = runnable object (we can invoke)
