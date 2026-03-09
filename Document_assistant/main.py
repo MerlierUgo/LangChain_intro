@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 import streamlit as st
-
+import litellm
 from core import run_llm
 
 def _format_sources(context_docs: List[Any]) -> List[str]:
@@ -41,6 +41,11 @@ for msg in st.session_state.messages:
                     
 prompt = st.chat_input("Ask a question about LangChain…")
 if prompt:
+    # model = "gpt-5.2"
+    # input_tokens = litellm.token_counter(model=model, text=prompt)
+    # cost_input = litellm.completion_cost(model=model, prompt=prompt)
+    print(f"Estimation : {input_tokens} tokens -> {cost_input:.4f} $")
+
     st.session_state.messages.append({"role": "user", "content": prompt, "sources": []})
     with st.chat_message("user"):
         st.markdown(prompt)
